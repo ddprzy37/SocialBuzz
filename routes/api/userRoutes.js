@@ -1,4 +1,5 @@
-const router = require('express').Router();
+const express = require('express');
+const router = express.Router();
 const {
   getAllUsers,
   getUserById,
@@ -7,7 +8,7 @@ const {
   deleteUser,
   addFriend,
   removeFriend
-} = require('../controllers/userController');
+} = require('../../controllers/userController');
 
 // Define routes for users
 router.route('/')
@@ -24,5 +25,6 @@ router.route('/:userId/friends/:friendId')
   .delete(removeFriend); // DELETE remove a friend from a user's friend list
 
 module.exports = router;
+
 
 

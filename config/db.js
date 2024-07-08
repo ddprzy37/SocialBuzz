@@ -1,26 +1,9 @@
-// Import mongoose library
-const mongoose = require('mongoose');
+const { connect, connection } = require('mongoose');
 
-// MongoDB connection URI
-const MONGODB_URI = 'mongodb://localhost:27017/social-media-api';
+const connectionString = 'mongodb://127.0.0.1:27017/studentsDB';
 
-// Configure mongoose to use promises
-mongoose.Promise = global.Promise;
+connect(connectionString);
 
-// Connect to MongoDB
-mongoose.connect(MONGODB_URI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-  useFindAndModify: false,
-  useCreateIndex: true
-});
+module.exports = connection;
 
-// Get the default connection
-const db = mongoose.connection;
-
-// Bind connection to error event (to get notifications of connection errors)
-db.on('error', console.error.bind(console, 'MongoDB connection error:'));
-
-// Export the connection
-module.exports = db;
 

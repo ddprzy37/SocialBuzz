@@ -1,5 +1,6 @@
 const express = require('express');
 const db = require('./config/db'); // Adjust the path as necessary
+const routes = require('./routes'); // This should automatically look for index.js
 
 const app = express();
 
@@ -17,14 +18,7 @@ db.on('error', err => {
 });
 
 // Routes
-const indexRoutes = require('./routes/index');
-const userRoutes = require('./routes/userRoutes');
-const thoughtRoutes = require('./routes/thoughtRoutes');
-
-app.use('/', indexRoutes);
-app.use('/users', userRoutes);
-app.use('/thoughts', thoughtRoutes);
-// Add other routes as needed
+app.use('/', routes);
 
 // Start server
 const PORT = process.env.PORT || 3000;
