@@ -1,9 +1,8 @@
-import { Thought, User } from '../models';
-
+const { Thought, User } = require('../models/Tought');
 
 const userController = {
   // GET all users
-getAllUsers(_, res) {
+  getAllUsers(_, res) {
     User.find({})
       .populate({
         path: 'thoughts',
@@ -119,4 +118,5 @@ getAllUsers(_, res) {
 };
 
 module.exports = userController;
+
 

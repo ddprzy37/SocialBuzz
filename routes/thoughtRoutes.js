@@ -17,10 +17,11 @@ router.put('/:thoughtId', thoughtController.updateThought);
 router.delete('/:thoughtId', thoughtController.deleteThought);
 
 // POST add a reaction to a thought
-router.post('/:thoughtId/reactions', thoughtController.addReaction);
+router.post('/:thoughtId/reactions', thoughtController.createReaction);
 
 // DELETE remove a reaction from a thought
-router.delete('/:thoughtId/reactions/:reactionId', thoughtController.removeReaction);
+router.delete('/:thoughtId/reactions/:reactionId', thoughtController.deleteReaction);
 
 module.exports = router;
+
 

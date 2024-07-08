@@ -23,3 +23,4 @@ db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
 // Export the connection
 module.exports = db;
+

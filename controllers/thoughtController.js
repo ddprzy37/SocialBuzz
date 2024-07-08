@@ -1,8 +1,8 @@
-import { Thought, User } from '../models';
+const { Thought, User } = require('../models/Tought');
 
 const thoughtController = {
-    // GET all thoughts
-    getAllThoughts(_, res) {
+  // GET all thoughts
+  getAllThoughts(_, res) {
     Thought.find({})
       .populate({
         path: 'reactions',
@@ -119,4 +119,5 @@ const thoughtController = {
 };
 
 module.exports = thoughtController;
+
 
