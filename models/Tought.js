@@ -29,12 +29,14 @@ const thoughtSchema = new Schema({
   id: false
 });
 
+const Thought = mongoose.model('Thought', thoughtSchema);
+
 thoughtSchema.virtual('reactionCount').get(function() {
   return this.reactions.length;
 });
 
 module.exports = mongoose.model('Thought', thoughtSchema);
 
-
+module.exports = Thought;
 
 
