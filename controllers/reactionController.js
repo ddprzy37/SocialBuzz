@@ -1,4 +1,4 @@
-const Reaction = require('../models/Reaction');
+const { Reaction } = require('../models');
 
 // Controller methods
 const createReaction = async (req, res) => {
@@ -61,3 +61,4 @@ module.exports = {
   updateReaction,
   deleteReaction
 };
+

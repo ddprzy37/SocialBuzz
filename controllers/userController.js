@@ -1,4 +1,4 @@
-const { Thought, User } = require('../models/User');
+const { Thought, User } = require('../models');
 
 const userController = {
   // GET all users
@@ -52,35 +52,51 @@ const userController = {
       .catch(err => res.status(400).json(err));
   },
 
-  // PUT update a user by id
-  updateUser({ params, body }, res) {
-    User.findOneAndUpdate({ _id: params.userId }, body, { new: true, runValidators: true })
-      .then(dbUserData => {
-        if (!dbUserData) {
-          res.status(404).json({ message: 'No user found with this id!' });
-          return;
-        }
-        res.json(dbUserData);
-      })
-      .catch(err => res.status(400).json(err));
-  },
+ // PUT update a user by id
+updateUser({ params, body }, res) {
+  console.log('Updating user with ID:', params.userId);
+  console.log('New user data:', body);
 
-  // DELETE remove a user by id
-  deleteUser({ params }, res) {
-    User.findOneAndDelete({ _id: params.userId })
-      .then(deletedUser => {
-        if (!deletedUser) {
-          res.status(404).json({ message: 'No user found with this id!' });
-          return;
-        }
-        // Remove user's thoughts from Thoughts collection
-        return Thought.deleteMany({ _id: { $in: deletedUser.thoughts } });
-      })
-      .then(() => {
-        res.json({ message: 'User and associated thoughts deleted!' });
-      })
-      .catch(err => res.status(400).json(err));
-  },
+  User.findOneAndUpdate({ _id: params.userId }, body, { new: true, runValidators: true })
+    .then(dbUserData => {
+      if (!dbUserData) {
+        console.log('User not found with ID:', params.userId);
+        return res.status(404).json({ message: 'No user found with this id!' });
+      }
+      console.log('Updated user data:', dbUserData);
+      res.json(dbUserData);
+    })
+    .catch(err => {
+      console.error('Error updating user:', err);
+      res.status(400).json(err);
+    });
+},
+
+
+// DELETE remove a user by id
+deleteUser({ params }, res) {
+  console.log('Deleting user with ID:', params.userId);
+
+  User.findOneAndDelete({ _id: params.userId })
+    .then(deletedUser => {
+      if (!deletedUser) {
+        console.log('User not found with ID:', params.userId);
+        return res.status(404).json({ message: 'No user found with this id!' });
+      }
+      console.log('Deleted user:', deletedUser);
+
+      // Remove user's thoughts from Thoughts collection
+      return Thought.deleteMany({ _id: { $in: deletedUser.thoughts } });
+    })
+    .then(() => {
+      res.json({ message: 'User and associated thoughts deleted!' });
+    })
+    .catch(err => {
+      console.error('Error deleting user:', err);
+      res.status(400).json(err);
+    });
+},
+
 
   // POST add a new friend to a user's friend list
   addFriend({ params, body }, res) {
